@@ -34,7 +34,7 @@ const STEPS = [
     number: '01',
     icon: '📅',
     title: 'Free Consultation',
-    desc: 'Book a no-obligation 30-minute session. We talk about where you are now, where you want to be, and what's standing in the way.',
+    desc: "Book a no-obligation 30-minute session. We talk about where you are now, where you want to be, and what's standing in the way.",
   },
   {
     number: '02',
