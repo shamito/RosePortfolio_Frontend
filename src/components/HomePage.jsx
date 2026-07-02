@@ -275,16 +275,16 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                With over 10 years of experience in the financial services industry, I am dedicated to helping individuals and families build a brighter financial future. As a certified Sun Life Financial Advisor, I specialise in creating personalised financial strategies that align with your goals and values.
+                As a Sun Life Financial Advisor based in Dumaguete City, I am dedicated to helping families and individuals in Negros Oriental build a stronger financial future. I specialise in creating personalised financial strategies that align with your goals, your income, and your family's needs.
               </p>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                My approach is built on trust, transparency, and a deep understanding of your unique needs. Whether you're planning for retirement, protecting your family's future, or building wealth, I'm here to guide you every step of the way.
+                My approach is built on trust, transparency, and a genuine care for the people I work with. Whether you're planning for retirement, protecting your family's future, or investing for your children's education, I'm here to guide you every step of the way.
               </p>
               <div className="space-y-4">
                 {[
                   'Sun Life Certified Financial Advisor',
-                  '10+ Years Industry Experience',
-                  '500+ Satisfied Clients Across the Philippines',
+                  '2+ Years Industry Experience',
+                  '50+ Satisfied Clients in Negros Oriental',
                   'Specialist in Family & OFW Financial Planning',
                 ].map((item) => (
                   <div key={item} className="flex items-center">
@@ -299,7 +299,7 @@ export default function HomePage() {
             <div className="bg-gradient-to-br from-yellow-50 to-orange-50 p-8 rounded-2xl shadow-xl">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">My Mission</h3>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
-                To empower every Filipino family with the knowledge and tools needed to achieve financial independence and security, while building lasting relationships based on integrity and excellence.
+                To empower every family in Dumaguete and Negros Oriental with the knowledge and tools needed to achieve financial independence and security, while building lasting relationships based on integrity and genuine care.
               </p>
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <p className="text-orange-600 font-semibold text-xl">
