@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '/assets/img/Rose_logo.png';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '#' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/#about' },
+  { label: 'Services', to: '/#services' },
+  { label: 'Contact', to: '/#contact' },
+  { label: 'Blog', to: '/blog' },
 ];
 
 export default function Navbar() {
@@ -16,7 +18,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <a href="#" className="flex-shrink-0">
+          <Link to="/" className="flex-shrink-0">
             <img
               src={logo}
               alt="Roselyn Adanza"
@@ -24,21 +26,21 @@ export default function Navbar() {
               width="48"
               height="48"
             />
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden sm:flex sm:items-center sm:space-x-6">
-            {NAV_LINKS.map(({ label, href }) => (
-              <a
+            {NAV_LINKS.map(({ label, to }) => (
+              <Link
                 key={label}
-                href={href}
+                to={to}
                 className="text-gray-600 hover:text-orange-500 text-sm font-medium transition-colors"
               >
                 {label}
-              </a>
+              </Link>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-yellow-500 hover:to-orange-600 transition-all shadow-sm whitespace-nowrap"
             >
               Book a Call
@@ -66,18 +68,18 @@ export default function Navbar() {
       {isOpen && (
         <div className="sm:hidden bg-white border-t border-gray-100">
           <div className="pt-2 pb-4 space-y-1 px-4">
-            {NAV_LINKS.map(({ label, href }) => (
-              <a
+            {NAV_LINKS.map(({ label, to }) => (
+              <Link
                 key={label}
-                href={href}
+                to={to}
                 onClick={() => setIsOpen(false)}
                 className="block py-2 text-gray-700 hover:text-orange-500 text-base font-medium transition-colors"
               >
                 {label}
-              </a>
+              </Link>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               onClick={() => setIsOpen(false)}
               className="block mt-2 text-center bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg text-sm font-semibold"
             >
