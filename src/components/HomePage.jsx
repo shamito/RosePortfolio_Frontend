@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import rosePhoto from '/assets/img/Rose_Photo.png';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -159,6 +160,7 @@ export default function HomePage() {
     message: '',
   });
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
 
   const handleChange = (e) => {
@@ -166,21 +168,34 @@ export default function HomePage() {
     if (submitStatus) setSubmitStatus(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, phone, message } = formData;
     if (!name.trim() || !email.trim() || !phone.trim() || !message.trim() || !EMAIL_RE.test(email)) {
       setSubmitStatus('error');
       return;
     }
-    const service = formData.service || 'Not specified';
-    const subject = encodeURIComponent(`Inquiry from ${name} — ${service}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nInterested in: ${service}\n\nMessage:\n${message}`
-    );
-    window.open(`mailto:adanza921@gmail.com?subject=${subject}&body=${body}`);
-    setFormData({ name: '', email: '', phone: '', service: '', message: '' });
-    setSubmitStatus('success');
+    setIsSubmitting(true);
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: name,
+          from_email: email,
+          phone: phone,
+          service: formData.service || 'Not specified',
+          message: message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setSubmitStatus('success');
+    } catch {
+      setSubmitStatus('send_error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -527,7 +542,7 @@ export default function HomePage() {
 
                 {submitStatus === 'success' && (
                   <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">
-                    Thanks for reaching out! Your message has been opened in your email client. I'll be in touch shortly.
+                    Message sent! Rose will be in touch with you shortly.
                   </div>
                 )}
                 {submitStatus === 'error' && (
@@ -535,12 +550,18 @@ export default function HomePage() {
                     Please fill in all required fields and provide a valid email address.
                   </div>
                 )}
+                {submitStatus === 'send_error' && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
+                    Something went wrong sending your message. Please try WhatsApp or email directly.
+                  </div>
+                )}
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-yellow-500 hover:to-orange-600 transition-all shadow-lg"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-yellow-500 hover:to-orange-600 transition-all shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending…' : 'Send Message'}
                 </button>
 
                 <p className="text-center text-gray-500 text-sm">or</p>
