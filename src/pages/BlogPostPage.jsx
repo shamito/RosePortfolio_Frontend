@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { collection, query, where, limit, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+
+const SITE_URL = 'https://roseadanza.vercel.app';
+const DEFAULT_IMAGE = `${SITE_URL}/assets/img/Rose_Photo.png`;
 
 function formatDate(ts) {
   if (!ts) return '';
@@ -192,8 +196,35 @@ export default function BlogPostPage() {
     );
   }
 
+  const postUrl = `${SITE_URL}/blog/${post.slug}`;
+  const ogImage = post.coverImageUrl || DEFAULT_IMAGE;
+
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      <Helmet>
+        <title>{post.title} | Roselyn Adanza</title>
+        <meta name="description" content={post.excerpt || post.title} />
+
+        {/* Open Graph — Facebook, WhatsApp, LinkedIn */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={postUrl} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt || post.title} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Roselyn Adanza | Sun Life Financial Advisor" />
+
+        {/* Twitter / X card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={postUrl} />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt || post.title} />
+        <meta name="twitter:image" content={ogImage} />
+
+        <link rel="canonical" href={postUrl} />
+      </Helmet>
+
       <Link to="/blog" className="text-sm text-orange-500 font-medium hover:underline">← Back to Blog</Link>
 
       <article className="mt-6">

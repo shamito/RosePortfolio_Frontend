@@ -6,10 +6,10 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const WHATSAPP = 'https://wa.me/639665633441';
 
 const STATS = [
-  { value: '10+', label: 'Years Experience' },
-  { value: '500+', label: 'Families Protected' },
-  { value: '98%', label: 'Client Satisfaction' },
-  { value: '₱50M+', label: 'Claims Assisted' },
+  { value: '2+', label: 'Years Experience' },
+  { value: '50+', label: 'Families Protected' },
+  { value: '95%', label: 'Client Satisfaction' },
+  { value: '₱5M+', label: 'Claims Assisted' },
 ];
 
 const WHY_CHOOSE = [
